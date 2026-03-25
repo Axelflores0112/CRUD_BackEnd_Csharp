@@ -20,7 +20,7 @@ public class UsersController : ControllerBase
 
     /*GET all*/
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> getUsers()
+    public async Task<ActionResult<IEnumerable<User>>> GetUsers()
     {
         var users = await _context.Users.ToListAsync();
         if(users == null) return NoContent();
@@ -29,7 +29,7 @@ public class UsersController : ControllerBase
 
     /*GET by id*/
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> getUser()
+    public async Task<ActionResult<User>> GetUser()
     {
         var user = await _context.Users.FindAsync();
         if(user == null)
@@ -38,32 +38,9 @@ public class UsersController : ControllerBase
         }
         return Ok(user);
     }
-
-    [HttpPost]
-    public async Task<ActionResult<User>> postUser(UserCreateDto userDto)
-    {
-        
-        var hasher = new PasswordHasher<User>();
-
-        var newUser = new User
-        {
-            id = userDto.id,
-            name = userDto.Name,
-            email = userDto.email,
-            passwordHash = userDto.password
-        };
-
-        _context.Users.Add(newUser);
-        await  _context.SaveChangesAsync();
-
-        return CreatedAtAction(
-            nameof(getUser),
-            new {id = newUser.id},
-            userDto);
-    }
     
     [HttpDelete("{id}")]
-    public async Task<ActionResult> deleteUser(long id )
+    public async Task<ActionResult> DeleteUser(long id )
     {
         var userToDelete = await _context.Users.FindAsync(id);
         if(userToDelete == null)

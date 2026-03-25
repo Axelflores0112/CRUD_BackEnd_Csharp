@@ -15,15 +15,18 @@ public class ExceptionMiddleware
         {
             await _next(context);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             context.Response.StatusCode = 500;
             context.Response.ContentType = "application/json";
 
             await context.Response.WriteAsJsonAsync(new
             {
-                message = "Ocurrió un error interno"
+                message = $"Ocurrió un error interno {ex.Message}"
             });
+
+            Console.WriteLine(ex.Message);
+            throw;
         }
     }
 }

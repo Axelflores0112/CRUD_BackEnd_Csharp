@@ -1,12 +1,14 @@
 using CRUD_BackEnd.Context;
 using Microsoft.EntityFrameworkCore;
 using CRUD_BackEnd.Middlewares;
+using CRUD_BackEnd.Security;
 
 DotNetEnv.Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 //Conexion a DB usando .env
 var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
 
@@ -38,3 +40,4 @@ app.MapControllers();
 
 app.Run();
 
+/*CORREGIR LOS DE LAS MIGRACIONE SY VERIFICAR A DONDE ESTA MANDANDO LOS REGISTROS*/

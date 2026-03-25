@@ -1,10 +1,7 @@
 namespace CRUD_BackEnd.Dtos;
 
-public class UserCreateDto
+public class UserAuthDTO
 {
-    public int id {get; set;}
-    public required string name {get; set;}
     public required string email {get; set;}
     public required string password {get; set;}
-
 }
